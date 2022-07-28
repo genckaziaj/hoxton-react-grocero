@@ -1,7 +1,7 @@
 import { StoreItem } from "../data/storeItems";
-import { StoreItemList } from "./StoreItemList";
+import { StoreItems } from "./StoreItems";
 
-export function Header({
+export function HeaderStore({
   storeItemsCopy,
   getItemImagePath,
   increaseQuantity,
@@ -11,7 +11,7 @@ export function Header({
       <h1>Grocero</h1>
       <ul className="item-list store--item-list">
         {storeItemsCopy.map((storeItem: StoreItem) => (
-          <StoreItemList
+          <StoreItems
             key={storeItem.id}
             storeItem={storeItem}
             getItemImagePath={getItemImagePath}

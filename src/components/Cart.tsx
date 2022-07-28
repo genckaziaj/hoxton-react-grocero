@@ -3,7 +3,7 @@ import { CartItem } from "./CartItem";
 import { Total } from "./Total";
 
 export function Cart({
-  storeItemsCopy,
+  getCartItems,
   getItemImagePath,
   increaseQuantity,
   decreaseQuantity,
@@ -14,7 +14,7 @@ export function Cart({
       <h2>Your Cart</h2>
       <div className="cart--item-list-container">
         <ul className="item-list cart--item-list">
-          {storeItemsCopy.map((storeItem: StoreItem) => (
+          {getCartItems.map((storeItem: StoreItem) => (
             <CartItem
               key={storeItem.id}
               storeItem={storeItem}

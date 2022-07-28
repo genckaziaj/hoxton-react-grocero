@@ -1,4 +1,4 @@
-export function StoreItemList({
+export function StoreItems({
   storeItem,
   getItemImagePath,
   increaseQuantity,

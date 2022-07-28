@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Header } from "./components/Header";
+import { HeaderStore } from "./components/HeaderStore";
 import { Cart } from "./components/Cart";
 import initialStoreItems, { StoreItem } from "./data/storeItems";
 
@@ -15,18 +15,16 @@ function App() {
     return `assets/icons/${id}-${item.name}.svg`;
   }
 
-  // function getCartItems() {
-  //   return storeItems.filter((item: StoreItem) => item.inCart > 0);
-  // }
+  function getCartItems() {
+    return storeItemsCopy.filter((item: StoreItem) => item.inCart > 0);
+  }
 
-  // output: the current total
   function getTotal() {
     return storeItems.map((item: StoreItem) => item.price * item.inCart);
   }
 
   function increaseQuantity(item: StoreItem) {
     if (item.stock === 0) return;
-
     item.inCart++;
     item.stock--;
     setStoreItems(storeItemsCopy);
@@ -42,13 +40,13 @@ function App() {
 
   return (
     <div>
-      <Header
+      <HeaderStore
         storeItemsCopy={storeItemsCopy}
         getItemImagePath={getItemImagePath}
         increaseQuantity={increaseQuantity}
       />
       <Cart
-        storeItemsCopy={storeItemsCopy}
+        getCartItems={getCartItems()}
         getItemImagePath={getItemImagePath}
         increaseQuantity={increaseQuantity}
         decreaseQuantity={decreaseQuantity}
