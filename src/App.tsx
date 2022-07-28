@@ -1,50 +1,45 @@
 import { useState } from "react";
+import { Header } from "./components/Header";
+import { Cart } from "./components/Cart";
+import initialStoreItems, { StoreItem } from "./data/storeItems";
 
 import "./App.css";
-import beetroot from "./assets/icons/001-beetroot.svg";
 
 function App() {
-  const [] = useState();
+  const [storeItems, setStoreItems] = useState(initialStoreItems);
+
+  function getItemImagePath(item: StoreItem) {
+    let id = String(item.id).padStart(3, "0");
+    return `assets/icons/${id}-${item.name}.svg`;
+  }
+
+  function getCartItems() {
+    return storeItems.filter((item: StoreItem) => item.inCart > 0);
+  }
+
+  // output: the current total
+  function getTotal() {
+    return storeItems.map((item: StoreItem) => item.price * item.inCart);
+  }
+
+  function increaseQuantity(item: StoreItem) {
+    if (item.stock === 0) return;
+
+    item.inCart++;
+    item.stock--;
+  }
+
+  function decreaseQuantity(item: StoreItem) {
+    if (item.inCart > 0) {
+      item.inCart--;
+      item.stock++;
+    }
+  }
 
   return (
     <div>
-      <header id="store">
-        <h1>Grocero</h1>
-        <ul className="item-list store--item-list">
-          <li>
-            <div className="store--item-icon">
-              <img src={beetroot} alt="beetroot" />
-            </div>
-            <button>Add to cart</button>
-          </li>
-        </ul>
-      </header>
-
-      <main id="cart">
-        <h2>Your Cart</h2>
-
-        <div className="cart--item-list-container">
-          <ul className="item-list cart--item-list">
-            <li>
-              <img className="cart--item-icon" src={beetroot} alt="beetroot" />
-              <p>beetroot</p>
-              <button className="quantity-btn remove-btn center">-</button>
-              <span className="quantity-text center">1</span>
-              <button className="quantity-btn add-btn center">+</button>
-            </li>
-          </ul>
-        </div>
-
-        <div className="total-section">
-          <div>
-            <h3>Total</h3>
-          </div>
-
-          <div>
-            <span className="total-number">£0.00</span>
-          </div>
-        </div>
-      </main>
+      <Header storeItems={storeItems} getItemImagePath={getItemImagePath} />
+      <Cart storeItems={storeItems}/>
     </div>
   );
 }
