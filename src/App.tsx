@@ -39,7 +39,7 @@ function App() {
   return (
     <div>
       <Header storeItems={storeItems} getItemImagePath={getItemImagePath} />
-      <Cart storeItems={storeItems}/>
+      <Cart storeItems={storeItems} getItemImagePath={getItemImagePath} />
     </div>
   );
 }
