@@ -8,14 +8,16 @@ import "./App.css";
 function App() {
   const [storeItems, setStoreItems] = useState(initialStoreItems);
 
+  const storeItemsCopy = structuredClone(storeItems);
+
   function getItemImagePath(item: StoreItem) {
     let id = String(item.id).padStart(3, "0");
     return `assets/icons/${id}-${item.name}.svg`;
   }
 
-  function getCartItems() {
-    return storeItems.filter((item: StoreItem) => item.inCart > 0);
-  }
+  // function getCartItems() {
+  //   return storeItems.filter((item: StoreItem) => item.inCart > 0);
+  // }
 
   // output: the current total
   function getTotal() {
@@ -27,19 +29,31 @@ function App() {
 
     item.inCart++;
     item.stock--;
+    setStoreItems(storeItemsCopy);
   }
 
   function decreaseQuantity(item: StoreItem) {
     if (item.inCart > 0) {
       item.inCart--;
       item.stock++;
+      setStoreItems(storeItemsCopy);
     }
   }
 
   return (
     <div>
-      <Header storeItems={storeItems} getItemImagePath={getItemImagePath} />
-      <Cart storeItems={storeItems} getItemImagePath={getItemImagePath} />
+      <Header
+        storeItemsCopy={storeItemsCopy}
+        getItemImagePath={getItemImagePath}
+        increaseQuantity={increaseQuantity}
+      />
+      <Cart
+        storeItemsCopy={storeItemsCopy}
+        getItemImagePath={getItemImagePath}
+        increaseQuantity={increaseQuantity}
+        decreaseQuantity={decreaseQuantity}
+        getTotal={getTotal}
+      />
     </div>
   );
 }

@@ -1,10 +1,20 @@
-export function StoreItemList({ storeItem, getItemImagePath }: any) {
+export function StoreItemList({
+  storeItem,
+  getItemImagePath,
+  increaseQuantity,
+}: any) {
   return (
     <li>
       <div className="store--item-icon">
         <img src={getItemImagePath(storeItem)} alt="beetroot" />
       </div>
-      <button>Add to cart</button>
+      <button
+        onClick={() => {
+          increaseQuantity(storeItem);
+        }}
+      >
+        Add to cart
+      </button>
     </li>
   );
 }
