@@ -13,7 +13,7 @@ export function StoreItems({
           increaseQuantity(storeItem);
         }}
       >
-        Add to cart
+        Add to cart ({storeItem.stock})
       </button>
     </li>
   );
